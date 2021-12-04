@@ -9,23 +9,25 @@ const NavBar=()=>{
       return [
         <li key="1"><Link to="/create">Create Post</Link></li>,
         <li key="2"><Link to="/profile">Profile</Link></li>,
-        <li key="3">
-          <button className="btn waves-effect waves-light black"
-             onClick={()=>{
+        <li key="3"><Link to="/subsposts">Feed</Link></li>,
+        <li key="4">
+          <button style={{marginRight:"5px"}}
+            className="btn waves-effect waves-light black"
+            onClick={()=>{
               localStorage.clear()
               dispatch({type:"CLEAR"})
               navigate("/login")
-             }
-             }>logout
-            </button>
+            }
+            }>logout
+          </button>
         </li>
         
       ]
     }
     else{
       return [
-        <li key="4"><Link to="/login">Login</Link></li>,
-        <li key="5"><Link to="/register">Register</Link></li>
+        <li key="5"><Link to="/login">Login</Link></li>,
+        <li key="6"><Link to="/register">Register</Link></li>
       ]
     }
   }

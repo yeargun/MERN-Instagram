@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const {ObjectId} = mongoose.Schema.Types
 const userSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    pic:{type:String, default:"https://www.kindpng.com/picc/m/451-4517876_default-profile-hd-png-download.png"},
+    followers:[{type:ObjectId,ref:"User"}],
+    following:[{type:ObjectId,ref:"User"}]
 
 })
 

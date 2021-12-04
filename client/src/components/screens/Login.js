@@ -7,6 +7,9 @@ const Login = ()=>{
     const Navigate = useNavigate()
     const [password,setPassword] = useState("")
     const [email,setEmail] = useState("")
+
+    
+
     const PostData= ()=>{
         if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
             M.toast({html: "invalid email", classes:"red"})
@@ -54,7 +57,7 @@ const Login = ()=>{
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
             />
-             <button className="btn waves-effect waves-light black"
+            <button className="btn waves-effect waves-light black"
              onClick={()=>PostData()}>Login
             </button>
             <h5>

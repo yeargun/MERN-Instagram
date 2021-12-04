@@ -35,6 +35,10 @@ a{
 }
 
 
+.material-icons:hover{
+    cursor: pointer;
+}
+
 .home-card{
     margin: 26px auto;
     max-width: 500px;

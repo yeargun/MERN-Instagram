@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import M from 'materialize-css'
 const Register = ()=>{
@@ -6,7 +6,33 @@ const Register = ()=>{
     const [name,setName] = useState("")
     const [password,setPassword] = useState("")
     const [email,setEmail] = useState("")
-    const PostData= ()=>{
+    const [image,setImage] = useState("")
+    const [url,setUrl] = useState(undefined)
+
+    useEffect(()=>{
+        if(url){
+            uploadFields()
+        }
+    },[url])
+    const uploadPic= ()=>{
+        const data = new FormData()
+        data.append("file",image)
+        data.append("upload_preset","better-insta")
+        data.append("dogfart24","cnq")
+        fetch("http://api.cloudinary.com/v1_1/dogfart24/image/upload",{
+            method:"post",
+            body:data
+        })
+        .then(res=>res.json())
+        .then(data=>{
+           setUrl(data.url)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
+    const uploadFields = ()=>{
         if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
             M.toast({html: "invalid email", classes:"red"})
             return
@@ -19,7 +45,8 @@ const Register = ()=>{
             body: JSON.stringify({
                 name,
                 password,
-                email
+                email,
+                pic:url
             })
         }).then(res=>res.json())
         .then(data=>{
@@ -33,6 +60,13 @@ const Register = ()=>{
         }).catch(err=>{
             console.log(err)
         })
+    }
+
+    const PostData= ()=>{
+        if(image)
+            uploadPic()
+        else
+            uploadFields()
     }
 
     return(
@@ -57,7 +91,20 @@ const Register = ()=>{
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
             />
-             <button className="btn waves-effect waves-light black"
+            <div className="file-field input-field">
+            <div className="btn black" >
+                <span>upload profile pic</span>
+                <input 
+                type="file"
+                onChange={(e)=>setImage(e.target.files[0])}
+                />
+            </div>
+            <div className="file-path-wrapper">
+                <input className="file-path validate" type="text"/>
+            </div>
+            </div>
+
+            <button className="btn waves-effect waves-light black"
              onClick={()=>PostData()}>  Register
             </button>
             <h5>

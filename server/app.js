@@ -13,6 +13,8 @@ require('./models/post')
 app.use(express.json())
 app.use(require('./routes/auth'))
 app.use(require('./routes/post'))
+app.use(require('./routes/user'))
+
 
 
 mongoose.connection.on('connected', ()=> {

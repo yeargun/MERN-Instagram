@@ -14,7 +14,7 @@ const Profile = ()=>{
         })
     })
     return(
-        <div stye={{maxWidth:"550px",margin:"0px auto"}}>
+        <div style={{maxWidth:"550px",margin:"0px auto"}}>
             <div style={{
                 display:"flex",
                 justifyContent:"space-around",
@@ -23,15 +23,15 @@ const Profile = ()=>{
             }}>
                 <div>
                     <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
-                        src="https://images.unsplash.com/photo-1610216705422-caa3fcb6d158?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                        src={state?state.pic:""}
                     />
                 </div>
                 <div>
                     <h4>{state?state.name:"loading"}</h4>
-                    <div style={{display:"flex", justifyContent:"space-between",width:"25%"}}>
-                        <h6>40 post</h6>
-                        <h6>24 followers</h6>
-                        <h6>40 following</h6>
+                    <div style={{display:"flex",justifyContent:"space-between",width:"108%"}}>
+                        <h6>{pics.length} post</h6>
+                        <h6>{state?state.followers.length:" "} followers</h6>
+                        <h6>{state?state.following.length:" "} following</h6>
                     </div>
                 </div>
             

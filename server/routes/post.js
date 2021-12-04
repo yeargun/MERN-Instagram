@@ -16,6 +16,21 @@ router.get('/allpost',requireLogin,(req,res)=>{
     })
 })
 
+//subscribed
+router.get('/getsubpost',requireLogin,(req,res)=>{
+
+    //if postedby in following list
+    Post.find({postedBy:{$in:req.user.following}})
+    .populate('postedBy','_id name')
+    .populate("comments.postedBy","_id name")
+    .then(posts=>{
+        res.json(posts)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+})
+
 router.get('/myposts',requireLogin,(req,res)=>{
     Post.find({postedBy:req.user._id})
     .populate("postedBy","_id name")
@@ -79,7 +94,10 @@ router.put('/like',requireLogin,(req,res)=>{
         $push:{likes:req.user._id}
     },{
         new:true  
-    }).exec((err,result)=>{
+    })
+    .populate("comments.postedBy","_id name")
+    .populate("postedBy","_id name")
+    .exec((err,result)=>{
         if(err){
             return res.status(422).json({error:err})
         }
@@ -94,7 +112,10 @@ router.put('/unlike',requireLogin,(req,res)=>{
         $pull:{likes:req.user._id}
     },{
         new:true  
-    }).exec((err,result)=>{
+    })
+    .populate("comments.postedBy","_id name")
+    .populate("postedBy","_id name")
+    .exec((err,result)=>{
         if(err){
             return res.status(422).json({error:err})
         }
@@ -104,9 +125,11 @@ router.put('/unlike',requireLogin,(req,res)=>{
     })
 })
 
-router.delete('deletepost/:postId',requireLogin,(req,res)=>{
-    Post.findOne({id:req.params.postId})
-    .populate("postedBy","_id")
+router.delete('/deletepost/:postId',requireLogin,(req,res)=>{
+    console.log("xddddd")
+    Post.findOne({_id:req.params.postId})
+    .populate("comments.postedBy","_id name")
+    .populate("postedBy","_id name")
     .exec((err,post)=>{
         if(err || !post)
             return res.status(422).json({error:err})
