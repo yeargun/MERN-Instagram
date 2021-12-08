@@ -15,7 +15,7 @@ const Login = ()=>{
             M.toast({html: "invalid email or password", classes:"red"})
             return
         }
-        fetch("http://localhost:3000/login",{
+        fetch("/login",{
             method:"post",
             headers:{
                 "Content-Type":"application/json"
