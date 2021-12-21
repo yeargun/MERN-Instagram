@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import M from 'materialize-css'
 import {useNavigate} from 'react-router-dom'
+import { MediaStoreData } from 'aws-sdk'
 
 
 const CreatePost = ()=>{

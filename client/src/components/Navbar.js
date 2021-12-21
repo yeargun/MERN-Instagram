@@ -147,7 +147,7 @@ const NavBar=()=>{
         <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
     <>
     <GlobalStyles/>
-    <i className="small material-icons" style={{color:'black'}}
+    <i className="small material-icons" style={{color:'black', width:"4%"}}
     onClick={themeToggler}>{theme==='light'? "airline_seat_individual_suite" : "brightness_5"}</i>
 
     </>
